@@ -1,0 +1,21 @@
+version: "2"
+services:
+  ui: 
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    stdin_open: true
+    depends_on: 
+      - web
+  web:
+    build: ./backend
+    ports:
+      - "3030:3030"
+    environment:
+      MONGODB_URI: 'mongodb://mongo:27017/api'
+    depends_on:
+      - mongo
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
